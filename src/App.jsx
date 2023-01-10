@@ -1,11 +1,16 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import Header from './Components/Header/Header';
 
 import ToDo from './Components/ToDo/ToDo';
+import { SettingsContext } from './context/settings/setting';
 
-export default class App extends React.Component {
-  render() {
-    return (
+const App = () => {
+  const { difficulty, name, itemsDisplayed } = useContext(SettingsContext);
+  return (
+    <>
+      <Header />
       <ToDo />
-    );
-  }
-}
+    </>
+  );
+};
+export default App;
