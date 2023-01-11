@@ -6,14 +6,14 @@ import { v4 as uuid } from 'uuid';
 import List from '../List/List.jsx';
 import { SettingsContext } from '../../context/settings/setting.jsx';
 
-const ToDo = () => {
-  const { difficulty, setDifficulty, name, itemsDisplayed, setItem } =
+const ToDo = (props) => {
+  const { difficulty, name, itemsDisplayed, setItem, sort } =
     useContext(SettingsContext);
   const [defaultValue] = useState({
     difficulty: difficulty,
   });
   const [list, setList] = useState([]);
-  const [incomplete, setIncomplete] = useState([]);
+  const { incomplete, setIncomplete } = props;
   const { handleChange, handleSubmit } = useForm(addItem, defaultValue);
 
   function addItem(item) {
@@ -40,11 +40,12 @@ const ToDo = () => {
     setList(items);
   }
 
-  // useEffect(() => {
-  //   let incompleteCount = list.filter((item) => !item.complete).length;
-  //   setIncomplete(incompleteCount);
-  //   document.title = `To Do List: ${incomplete}`;
-  // }, [list]);
+  useEffect(() => {
+    setIncomplete(() => {
+      let incompleteCount = list.filter((item) => !item.complete).length;
+      return incompleteCount;
+    });
+  }, [list]);
   const MARKS = [
     { value: 0, label: '1' },
     { value: 25, label: '2' },
@@ -54,9 +55,9 @@ const ToDo = () => {
   ];
   return (
     <>
-      <header data-testid='todo-header'>
+      {/* <header data-testid='todo-header'>
         <h1 data-testid='todo-h1'>To Do List: {incomplete} items pending</h1>
-      </header>
+      </header> */}
 
       <form onSubmit={handleSubmit}>
         <h2>Add To Do Item</h2>
@@ -65,7 +66,7 @@ const ToDo = () => {
           <span>To Do Item</span>
           <input
             onChange={handleChange}
-            name='text'
+            name='details'
             type='text'
             placeholder='Item Details'
           />
