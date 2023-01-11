@@ -6,13 +6,14 @@ const SettingsProvider = ({ children }) => {
   const [details, setDetails] = useState('no details provided');
   const [difficulty, setDifficulty] = useState(3);
   const [name, setName] = useState('Anyone-no name provided');
-  const [incomplete, setIncomplete] = useState(0);
+  const [showComplete, setShowComplete] = useState(false);
   const [itemsDisplayed, setItemsDisplayed] = useState(3);
   const [item, setItem] = useState();
+  const [sort, setSort] = useState('difficulty');
 
   const values = {
-    incomplete,
-    setIncomplete,
+    showComplete,
+    setShowComplete,
     details,
     setDetails,
     difficulty,
@@ -22,6 +23,7 @@ const SettingsProvider = ({ children }) => {
     setItemsDisplayed,
     item,
     setItem,
+    sort,
   };
   return (
     <SettingsContext.Provider value={values}>
