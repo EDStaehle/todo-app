@@ -1,9 +1,6 @@
 import { createStyles } from '@mantine/core';
 const useStyles = createStyles((theme) => ({
   listCards: {
-    // subscribe to color scheme changes right in your styles
-    // backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[5] : theme.colors.gray[1],
-
     width: 600,
     maxHeight: 100,
     height: '100%',
@@ -13,17 +10,33 @@ const useStyles = createStyles((theme) => ({
     // marginLeft: 'auto',
     // marginRight: 'auto',
     borderRadius: theme.radius.sm,
-
-
   },
 
-  child: {
-    // assign ref to element
-    backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[8] : theme.white,
-    padding: theme.spacing.md,
-    borderRadius: theme.radius.sm,
-    boxShadow: theme.shadows.md,
-    color: theme.colorScheme === 'dark' ? theme.white : theme.black,
+  navbar: {
+    backgroundColor: theme.colors.blue[6],
+    color: theme.colors.gray[0],
+    display: 'flex',
+    alignItems: 'apart',
+    justifyContent: 'center',
   },
+  navbarLink: {
+    color: theme.colors.gray[0]
+  },
+  settingsHeader: {
+    backgroundColor: theme.colors.gray[8],
+    color: theme.colors.gray[0],
+    width: '80%',
+    margin: 'auto',
+    fontSize: theme.fontSizes.lg,
+    padding: theme.spacing.lg
+  },
+  homeHeader: {
+    backgroundColor: theme.colors.gray[8],
+    color: theme.colors.gray[0],
+    width: '80%',
+    margin: 'auto',
+    fontSize: theme.fontSizes.lg,
+    padding: theme.spacing.lg
+  }
 }));
 export default useStyles;
