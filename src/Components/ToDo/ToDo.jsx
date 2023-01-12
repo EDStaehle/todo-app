@@ -1,14 +1,29 @@
 import React, { useEffect, useState, useContext } from 'react';
 import useForm from '../../hooks/form.js';
-import { Slider } from '@mantine/core';
+import {
+  Slider,
+  TextInput,
+  Grid,
+  Card,
+  Text,
+  NumberInput,
+  Button,
+  Popover,
+} from '@mantine/core';
 
 import { v4 as uuid } from 'uuid';
 import List from '../List/List.jsx';
 import { SettingsContext } from '../../context/settings/setting.jsx';
+import useStyles from '../mantineStyles/mantineStyles.js';
+import Auth from '../Login_or_out/Auth.jsx';
+import { When } from 'react-if';
+import { AuthContext } from '../../context/Auth/index.jsx';
 
 const ToDo = (props) => {
+  const { classes } = useStyles();
   const { difficulty, name, itemsDisplayed, setItem, sort } =
     useContext(SettingsContext);
+  const { user } = useContext(AuthContext);
   const [defaultValue] = useState({
     difficulty: difficulty,
   });
@@ -19,7 +34,6 @@ const ToDo = (props) => {
   function addItem(item) {
     item.id = uuid();
     item.complete = false;
-    console.log(item);
     setList([...list, item]);
     setItem([...list, item]);
   }
@@ -55,53 +69,62 @@ const ToDo = (props) => {
   ];
   return (
     <>
-      {/* <header data-testid='todo-header'>
-        <h1 data-testid='todo-h1'>To Do List: {incomplete} items pending</h1>
-      </header> */}
-
-      <form onSubmit={handleSubmit}>
-        <h2>Add To Do Item</h2>
-
-        <label>
-          <span>To Do Item</span>
-          <input
-            onChange={handleChange}
-            name='details'
-            type='text'
-            placeholder='Item Details'
+      <h1 className={classes.homeHeader}>
+        To Do List: {incomplete} items pending
+      </h1>
+      <Grid style={{ width: '80%', margin: 'auto' }}>
+        <Grid.Col xs={12} sm={6}>
+          <Card withBorder p='sm'>
+            <Card.Section>
+              <Text>Add To Do Item</Text>
+              <form onSubmit={handleSubmit}>
+                <TextInput
+                  name='details'
+                  placeholder='Item Details'
+                  onChange={handleChange}
+                  label='details'
+                />
+                <TextInput
+                  name='assignee'
+                  placeholder='Assignee Name'
+                  onChange={handleChange}
+                  label='Assigned to'
+                />
+                <Slider
+                  defaultValue={defaultValue.difficulty}
+                  onChange={handleChange}
+                  min={1}
+                  max={5}
+                  step={1}
+                  marks={MARKS}
+                  styles={{ markLabel: { display: 'none' } }}
+                />
+                {user.capabilities.includes('create') ? (
+                  <Button type='submit'>Add Item</Button>
+                ) : (
+                  <Popover width={200} position='bottom' withArrow shadow='md'>
+                    <Popover.Target>
+                      <Button>Add Item</Button>
+                    </Popover.Target>
+                    <Popover.Dropdown>
+                      <Text size='sm'>
+                        Attention user you do not have the access to create.
+                      </Text>
+                    </Popover.Dropdown>
+                  </Popover>
+                )}
+              </form>
+            </Card.Section>
+          </Card>
+        </Grid.Col>
+        <Grid.Col xs={12} sm={6}>
+          <List
+            list={list}
+            toggleComplete={toggleComplete}
+            deleteItem={deleteItem}
           />
-        </label>
-
-        <label>
-          <span>Assigned To</span>
-          <input
-            onChange={handleChange}
-            name='assignee'
-            type='text'
-            placeholder='Assignee Name'
-          />
-        </label>
-
-        <Slider
-          defaultValue={defaultValue.difficulty}
-          onChange={handleChange}
-          min={1}
-          max={5}
-          step={1}
-          marks={MARKS}
-          styles={{ markLabel: { display: 'none' } }}
-        />
-
-        <label>
-          <button type='submit'>Add Item</button>
-        </label>
-      </form>
-
-      <List
-        list={list}
-        toggleComplete={toggleComplete}
-        deleteItem={deleteItem}
-      />
+        </Grid.Col>
+      </Grid>
     </>
   );
 };
