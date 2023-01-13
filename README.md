@@ -13,3 +13,7 @@ today we are implementing RBC role bas3ed control and authorization adn the abil
 we will be adding an additional context file in the app and add contexts needed for users and for RBC. We will also be implementing conditionally rendered components where depending on the users capabilities that will determine what they can see or what they can do i.e. editing a list item or deleting a list item.
 
 still working on understanding how to do tests for this content.
+
+## class 34
+
+today we are implementing the use of an api and gaining full crud capabilities through the use of axios and RBC to be able to create new users sign into those users and create data that will persist in a database.
