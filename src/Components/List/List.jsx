@@ -15,26 +15,23 @@ import Auth from '../Login_or_out/Auth';
 import { AuthContext } from '../../context/Auth';
 const List = (props) => {
   const { classes } = useStyles();
-  const { list, toggleComplete, deleteItem } = props;
+  const { items, toggleComplete, deleteItem } = props;
   let { itemsDisplayed, showComplete } = useContext(SettingsContext);
   const { user } = useContext(AuthContext);
 
   const [page, onChange] = useState(1);
-  const listToShow = showComplete
-    ? list
-    : list.filter((item) => !item.complete);
   const startIndex = (page - 1) * itemsDisplayed;
   const endIndex = startIndex + itemsDisplayed;
+  const listToShow = showComplete
+    ? items.slice(startIndex, endIndex)
+    : items.slice(startIndex, endIndex).filter((item) => !item.complete);
   const pageList = listToShow.slice(startIndex, endIndex);
-  console.log(list);
-  if (user.capabilities.includes('update')) {
-    console.log('user caps');
-  }
+
   // setItemsDisplayed(list);
   return (
     <>
       {pageList.map((item) => (
-        <div key={item.id}>
+        <div key={item._id}>
           <Card p='xs' radius='md' mb='md' withBorder width='80%'>
             <Card.Section withBorder>
               <Group position='apart' mt={0.01} withBorder>
@@ -60,7 +57,7 @@ const List = (props) => {
                           size='xs'
                           width='10%'
                           radius='md'
-                          onClick={() => toggleComplete(item.id)}
+                          onClick={() => toggleComplete(item._id)}
                         >
                           Pending
                         </Badge>
@@ -98,7 +95,7 @@ const List = (props) => {
                         fontSize: theme.fontSizes.xs,
                       },
                     })}
-                    onClick={() => deleteItem(item.id)}
+                    onClick={() => deleteItem(item._id)}
                   >
                     X
                   </Button>
