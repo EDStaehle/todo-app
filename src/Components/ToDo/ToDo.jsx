@@ -18,6 +18,7 @@ import useStyles from '../mantineStyles/mantineStyles.js';
 import Auth from '../Login_or_out/Auth.jsx';
 import { When } from 'react-if';
 import { AuthContext } from '../../context/Auth/index.jsx';
+import axios from 'axios';
 
 const ToDo = (props) => {
   const { classes } = useStyles();
@@ -31,27 +32,57 @@ const ToDo = (props) => {
   const { incomplete, setIncomplete } = props;
   const { handleChange, handleSubmit } = useForm(addItem, defaultValue);
 
-  function addItem(item) {
-    item.id = uuid();
+  async function addItem(item) {
     item.complete = false;
-    setList([...list, item]);
-    setItem([...list, item]);
-  }
 
-  function deleteItem(id) {
-    const items = list.filter((item) => item.id !== id);
-    setList(items);
-  }
-
-  function toggleComplete(id) {
-    const items = list.map((item) => {
-      if (item.id === id) {
-        item.complete = !item.complete;
+    try {
+      if (item.text) {
+        const response = await axios.post(
+          'https://api-js401.herokuapp.com/api/v1/todo',
+          item,
+        );
+        setList([...list, response.data]);
+        setItem([...list, response.data]);
+      } else {
+        console.warn('missing text');
       }
-      return item;
-    });
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
-    setList(items);
+  async function deleteItem(itemId) {
+    let that = list.filter((item) => item._id !== itemId);
+
+    try {
+      await axios.delete(
+        `https://api-js401.herokuapp.com/api/v1/todo/${itemId}`,
+      );
+      setList(list.filter((item) => item._id !== itemId));
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  async function toggleComplete(id) {
+    try {
+      let item = list.find((item) => item._id === id);
+      item.complete = !item.complete;
+      const response = await axios.put(
+        `https://api-js401.herokuapp.com/api/v1/todo/${id}`,
+        item,
+      );
+      console.log(response.data.complete);
+      const items = list.map((item) => {
+        if (item._id === id) {
+          item.complete = response.data.complete;
+        }
+        return item;
+      });
+      setList(items);
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   useEffect(() => {
@@ -60,6 +91,20 @@ const ToDo = (props) => {
       return incompleteCount;
     });
   }, [list]);
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await axios.get(
+          'https://api-js401.herokuapp.com/api/v1/todo',
+        );
+        console.log(response.data.results);
+        setList(response.data.results);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    fetchData();
+  }, []);
   const MARKS = [
     { value: 0, label: '1' },
     { value: 25, label: '2' },
@@ -79,10 +124,10 @@ const ToDo = (props) => {
               <Text>Add To Do Item</Text>
               <form onSubmit={handleSubmit}>
                 <TextInput
-                  name='details'
-                  placeholder='Item Details'
+                  name='text'
+                  placeholder='Item text'
                   onChange={handleChange}
-                  label='details'
+                  label='text'
                 />
                 <TextInput
                   name='assignee'
