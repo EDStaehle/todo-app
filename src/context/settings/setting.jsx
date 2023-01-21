@@ -32,6 +32,7 @@ const SettingsProvider = ({ children }) => {
     difficulty,
     setDifficulty,
     name,
+    setName,
     itemsDisplayed,
     setItemsDisplayed,
     item,

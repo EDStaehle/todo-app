@@ -51,10 +51,7 @@ const AuthProvider = ({ children }) => {
       role: signUpRole,
     };
     try {
-      const response = await axios.post(
-        'https://api-js401.herokuapp.com/signup',
-        data,
-      );
+      await axios.post('https://api-js401.herokuapp.com/signup', data);
     } catch (e) {
       console.error(e);
     }

@@ -1,10 +1,9 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from "react-router-dom";
 import App from './App';
-import AuthProvider, { AuthContext } from './context/Auth';
+import AuthProvider from './context/Auth';
 import SettingsProvider from './context/settings/setting';
-import Login from './Components/Login_or_out/Login'
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(

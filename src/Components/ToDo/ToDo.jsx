@@ -25,7 +25,8 @@ const ToDo = (props) => {
     difficulty: difficulty,
   });
   const [list, setList] = useState([]);
-  const { incomplete, setIncomplete } = props;
+  const { setIncomplete } = props;
+  const { incomplete } = props;
   const { handleChange, handleSubmit } = useForm(addItem, defaultValue);
 
   async function addItem(item) {
@@ -82,10 +83,10 @@ const ToDo = (props) => {
   }
 
   useEffect(() => {
-    setIncomplete(() => {
-      let incompleteCount = list.filter((item) => !item.complete).length;
-      return incompleteCount;
-    });
+    let incompleteCount = list.filter((item) => !item.complete).length;
+    setIncomplete(incompleteCount);
+    document.title = `To Do List: ${incomplete}`;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [list]);
   useEffect(() => {
     async function fetchData() {
@@ -110,9 +111,7 @@ const ToDo = (props) => {
   ];
   return (
     <>
-      <h1 className={classes.homeHeader}>
-        To Do List: {incomplete} items pending
-      </h1>
+      <h1 className={classes.homeHeader}>To Do List</h1>
       <Grid style={{ width: '80%', margin: 'auto' }}>
         <Grid.Col xs={12} sm={6}>
           <Card withBorder p='sm'>
