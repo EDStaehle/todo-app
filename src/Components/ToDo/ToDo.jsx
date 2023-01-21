@@ -86,6 +86,7 @@ const ToDo = (props) => {
     let incompleteCount = list.filter((item) => !item.complete).length;
     setIncomplete(incompleteCount);
     document.title = `To Do List: ${incomplete}`;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [list]);
   useEffect(() => {
     async function fetchData() {
