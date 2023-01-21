@@ -6,24 +6,20 @@ import {
   Grid,
   Card,
   Text,
-  NumberInput,
   Button,
   Popover,
 } from '@mantine/core';
 
-import { v4 as uuid } from 'uuid';
 import List from '../List/List.jsx';
 import { SettingsContext } from '../../context/settings/setting.jsx';
 import useStyles from '../mantineStyles/mantineStyles.js';
-import Auth from '../Login_or_out/Auth.jsx';
-import { When } from 'react-if';
+
 import { AuthContext } from '../../context/Auth/index.jsx';
 import axios from 'axios';
 
 const ToDo = (props) => {
   const { classes } = useStyles();
-  const { difficulty, name, itemsDisplayed, setItem, sort } =
-    useContext(SettingsContext);
+  const { difficulty, setItem } = useContext(SettingsContext);
   const { user } = useContext(AuthContext);
   const [defaultValue] = useState({
     difficulty: difficulty,
@@ -52,7 +48,7 @@ const ToDo = (props) => {
   }
 
   async function deleteItem(itemId) {
-    let that = list.filter((item) => item._id !== itemId);
+    list.filter((item) => item._id !== itemId);
 
     try {
       await axios.delete(
