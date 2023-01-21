@@ -26,7 +26,7 @@ const ToDo = (props) => {
   });
   const [list, setList] = useState([]);
   const { setIncomplete } = props;
-
+  const { incomplete } = props;
   const { handleChange, handleSubmit } = useForm(addItem, defaultValue);
 
   async function addItem(item) {
@@ -83,10 +83,9 @@ const ToDo = (props) => {
   }
 
   useEffect(() => {
-    setIncomplete(() => {
-      let incompleteCount = list.filter((item) => !item.complete).length;
-      return incompleteCount;
-    });
+    let incompleteCount = list.filter((item) => !item.complete).length;
+    setIncomplete(incompleteCount);
+    document.title = `To Do List: ${incomplete}`;
   }, [list]);
   useEffect(() => {
     async function fetchData() {
