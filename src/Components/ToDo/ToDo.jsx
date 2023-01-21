@@ -25,7 +25,7 @@ const ToDo = (props) => {
     difficulty: difficulty,
   });
   const [list, setList] = useState([]);
-  const { incomplete, setIncomplete } = props;
+  const { setIncomplete } = props;
   const { handleChange, handleSubmit } = useForm(addItem, defaultValue);
 
   async function addItem(item) {

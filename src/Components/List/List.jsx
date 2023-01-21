@@ -10,7 +10,6 @@ import {
 } from '@mantine/core';
 import { When } from 'react-if';
 import { SettingsContext } from '../../context/settings/setting';
-import useStyles from '../mantineStyles/mantineStyles';
 import Auth from '../Login_or_out/Auth';
 import { AuthContext } from '../../context/Auth';
 const List = (props) => {

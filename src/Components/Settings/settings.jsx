@@ -5,9 +5,7 @@ import useStyles from '../mantineStyles/mantineStyles';
 import {
   Card,
   Text,
-  Badge,
   Button,
-  Group,
   Grid,
   Switch,
   NumberInput,
@@ -26,8 +24,6 @@ const Settings = () => {
     setShowComplete,
     itemsDisplayed,
     setItemsDisplayed,
-    item,
-    setItem,
     sort,
     setSort,
     saveLocally,
