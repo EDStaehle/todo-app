@@ -26,7 +26,7 @@ const ToDo = (props) => {
   });
   const [list, setList] = useState([]);
   const { setIncomplete } = props;
-  const { incomplete } = props;
+
   const { handleChange, handleSubmit } = useForm(addItem, defaultValue);
 
   async function addItem(item) {
@@ -111,9 +111,7 @@ const ToDo = (props) => {
   ];
   return (
     <>
-      <h1 className={classes.homeHeader}>
-        To Do List: {incomplete} items pending
-      </h1>
+      <h1 className={classes.homeHeader}>To Do List</h1>
       <Grid style={{ width: '80%', margin: 'auto' }}>
         <Grid.Col xs={12} sm={6}>
           <Card withBorder p='sm'>
