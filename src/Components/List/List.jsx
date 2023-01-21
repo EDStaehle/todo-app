@@ -14,8 +14,7 @@ import useStyles from '../mantineStyles/mantineStyles';
 import Auth from '../Login_or_out/Auth';
 import { AuthContext } from '../../context/Auth';
 const List = (props) => {
-  const { classes } = useStyles();
-  const { items, toggleComplete, deleteItem } = props;
+  const { list, toggleComplete, deleteItem } = props;
   let { itemsDisplayed, showComplete } = useContext(SettingsContext);
   const { user } = useContext(AuthContext);
 
@@ -23,8 +22,8 @@ const List = (props) => {
   const startIndex = (page - 1) * itemsDisplayed;
   const endIndex = startIndex + itemsDisplayed;
   const listToShow = showComplete
-    ? items.slice(startIndex, endIndex)
-    : items.slice(startIndex, endIndex).filter((item) => !item.complete);
+    ? list.slice(startIndex, endIndex)
+    : list.slice(startIndex, endIndex).filter((item) => !item.complete);
   const pageList = listToShow.slice(startIndex, endIndex);
 
   // setItemsDisplayed(list);

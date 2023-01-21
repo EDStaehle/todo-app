@@ -1,7 +1,7 @@
 import React from 'react';
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { Navbar, Anchor, Group, Button } from '@mantine/core';
+import { Navbar, Group, Button } from '@mantine/core';
 import useStyles from '../mantineStyles/mantineStyles';
 import { AuthContext } from '../../context/Auth';
 const NavbarApp = () => {

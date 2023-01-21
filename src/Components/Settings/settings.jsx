@@ -13,9 +13,9 @@ import {
   NumberInput,
   TextInput,
 } from '@mantine/core';
-import { ScrollRestoration } from 'react-router-dom';
+
 const Settings = () => {
-  const [show, setShow] = useState(false);
+  const [setShow] = useState(false);
   const handleSubmit = (e) => {
     e.preventDefault();
     setShow(true);
@@ -24,8 +24,6 @@ const Settings = () => {
   const {
     showComplete,
     setShowComplete,
-    difficulty,
-    setDifficulty,
     itemsDisplayed,
     setItemsDisplayed,
     item,

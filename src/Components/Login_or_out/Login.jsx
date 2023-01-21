@@ -1,17 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { AuthContext } from '../../context/Auth';
-import {
-  Slider,
-  TextInput,
-  Grid,
-  Card,
-  Text,
-  NumberInput,
-  Button,
-  Popover,
-  Group,
-} from '@mantine/core';
-import { Link } from 'react-router-dom';
+import { TextInput, Card, Text, Button, Popover, Group } from '@mantine/core';
 const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
